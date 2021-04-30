@@ -217,6 +217,10 @@ namespace demo002
                 pageNextBtn_Click(null, null);
                 e.SuppressKeyPress = true;//关闭"ding"的声音
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.WindowState = FormWindowState.Minimized;
+            }
         }
 
         //翻页后设置page
