@@ -37,14 +37,15 @@
             this.pageGoBtn = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonSearchPrev = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonSearchNext = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.saveBookmark = new System.Windows.Forms.Button();
             this.pageInfo = new System.Windows.Forms.Label();
             this.bookName = new System.Windows.Forms.Label();
             this.pageCountPerPageCB = new System.Windows.Forms.ComboBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -132,10 +133,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AllowDrop = true;
+            this.splitContainer1.Panel1.Controls.Add(this.buttonSearchPrev);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonSearchNext);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxSearch);
-            this.splitContainer1.Panel1.Controls.Add(this.saveBookmark);
             this.splitContainer1.Panel1.Controls.Add(this.pageInfo);
             this.splitContainer1.Panel1.Controls.Add(this.bookName);
             this.splitContainer1.Panel1.Controls.Add(this.pageCountPerPageCB);
@@ -152,9 +153,18 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 457);
+            this.splitContainer1.Size = new System.Drawing.Size(884, 457);
             this.splitContainer1.SplitterDistance = 64;
             this.splitContainer1.TabIndex = 7;
+            // 
+            // buttonSearchPrev
+            // 
+            this.buttonSearchPrev.Location = new System.Drawing.Point(685, 9);
+            this.buttonSearchPrev.Name = "buttonSearchPrev";
+            this.buttonSearchPrev.Size = new System.Drawing.Size(51, 23);
+            this.buttonSearchPrev.TabIndex = 14;
+            this.buttonSearchPrev.Text = "上一个";
+            this.buttonSearchPrev.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -165,15 +175,15 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "每页行数";
             // 
-            // buttonSearch
+            // buttonSearchNext
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(628, 9);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(51, 23);
-            this.buttonSearch.TabIndex = 12;
-            this.buttonSearch.Text = "搜索";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonSearchNext.Location = new System.Drawing.Point(628, 9);
+            this.buttonSearchNext.Name = "buttonSearchNext";
+            this.buttonSearchNext.Size = new System.Drawing.Size(51, 23);
+            this.buttonSearchNext.TabIndex = 12;
+            this.buttonSearchNext.Text = "下一个";
+            this.buttonSearchNext.UseVisualStyleBackColor = true;
+            this.buttonSearchNext.Click += new System.EventHandler(this.buttonSearchNext_Click);
             // 
             // textBoxSearch
             // 
@@ -181,16 +191,7 @@
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(100, 21);
             this.textBoxSearch.TabIndex = 11;
-            // 
-            // saveBookmark
-            // 
-            this.saveBookmark.Location = new System.Drawing.Point(685, 9);
-            this.saveBookmark.Name = "saveBookmark";
-            this.saveBookmark.Size = new System.Drawing.Size(75, 23);
-            this.saveBookmark.TabIndex = 10;
-            this.saveBookmark.Text = "设书签";
-            this.saveBookmark.UseVisualStyleBackColor = true;
-            this.saveBookmark.Click += new System.EventHandler(this.saveBookmark_Click);
+            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
             // 
             // pageInfo
             // 
@@ -228,6 +229,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.AllowDrop = true;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.richTextBox1.ForeColor = System.Drawing.Color.ForestGreen;
@@ -235,19 +237,18 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(800, 389);
+            this.richTextBox1.Size = new System.Drawing.Size(884, 389);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "请导入txt";
-            this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
-            this.richTextBox1.AllowDrop = true;
-            this.richTextBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragEnter);
             this.richTextBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragDrop);
+            this.richTextBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragEnter);
+            this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 457);
+            this.ClientSize = new System.Drawing.Size(884, 457);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -256,6 +257,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -276,10 +278,10 @@
         private System.Windows.Forms.ComboBox pageCountPerPageCB;
         private System.Windows.Forms.Label bookName;
         private System.Windows.Forms.Label pageInfo;
-        private System.Windows.Forms.Button saveBookmark;
-        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonSearchNext;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonSearchPrev;
     }
 }
 

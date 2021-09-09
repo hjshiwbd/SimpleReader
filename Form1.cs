@@ -32,9 +32,8 @@ namespace demo002
         string SECTION_PAGINATION = "pagination";
         //txt名
         string txtName;
-        //txt全路径
-        string filename;
-
+        //当前搜索到第几行,用于连续搜索的开始点
+        int searchIndex = -1;
 
         public Form1()
         {
@@ -305,13 +304,6 @@ namespace demo002
 
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e)
-        {
-            //搜索
-            //只搜前10个匹配的
-            //弹框显示匹配的行号,自行输入页数翻页            
-        }
-
         // 关闭事件
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -388,6 +380,68 @@ namespace demo002
             t2 = t2.Replace("-", "");
             return t2;
         }
+
+        private void buttonSearchNext_Click(object sender, EventArgs e)
+        {
+            if (this.textBoxSearch.Text.Length == 0)
+            {
+                return;
+            }
+            //搜索
+            int lineNum = GetSearchTextLine();
+            if (lineNum >= 0)
+            {
+                decimal page = Math.Ceiling((decimal)(lineNum + 1) / countPerPage);
+                LoadPage(((int)page));
+                int position = GetSearchPositionInPage(lineNum,((int)page));
+                this.richTextBox1.Select(position, this.textBoxSearch.Text.Length);
+            } else
+            {
+                MessageBox.Show("未找到");
+                this.searchIndex = -1;
+            }
+        }
+
+        // 搜索内容在当前页的位置(开始下标,结束下标)
+        private int GetSearchPositionInPage(int lineNum, int page)
+        {
+            //搜索结果所在行内容
+            string lineStr = list.ElementAt(lineNum);
+            //搜索结果所在行号
+            int searchLine = lineNum - (page - 1) * countPerPage;
+            //搜索结果所在行起始点
+            int lineStart = lineStr.IndexOf(this.textBoxSearch.Text);
+            int posiStart = 0;
+            //[搜索结果页的第0行->结果所在行-1]的所有字数累加
+            for (int i = (page - 1) * countPerPage; i <= lineNum - 1; i++) 
+            {
+                posiStart += list.ElementAt(i).Length + 1;//+1是回车
+            }
+            posiStart += lineStart;
+            return posiStart;
+        }
+
+        private int GetSearchTextLine()
+        {
+            for (int i = this.searchIndex+1; i < list.Count; i++)
+            {
+                if (list.ElementAt(i).Contains(this.textBoxSearch.Text))
+                {
+                    this.searchIndex = i;
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (this.searchIndex != 0)
+            {
+                this.searchIndex = 0;
+            }
+        }
+
     }
 
     //翻页工具类
