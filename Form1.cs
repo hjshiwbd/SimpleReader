@@ -442,6 +442,21 @@ namespace demo002
             }
         }
 
+        private void textBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonSearchNext_Click(sender, e);
+            }
+        }
+
+        private void pageTextbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                pageGoBtn_Click(sender, e);
+            }
+        }
     }
 
     //翻页工具类

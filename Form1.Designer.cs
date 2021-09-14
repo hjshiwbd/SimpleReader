@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.importBtn = new System.Windows.Forms.Button();
             this.pageTextbox = new System.Windows.Forms.TextBox();
             this.pageEndBtn = new System.Windows.Forms.Button();
@@ -67,6 +68,7 @@
             this.pageTextbox.Name = "pageTextbox";
             this.pageTextbox.Size = new System.Drawing.Size(43, 21);
             this.pageTextbox.TabIndex = 1;
+            this.pageTextbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.pageTextbox_KeyUp);
             // 
             // pageEndBtn
             // 
@@ -192,6 +194,7 @@
             this.textBoxSearch.Size = new System.Drawing.Size(100, 21);
             this.textBoxSearch.TabIndex = 11;
             this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
+            this.textBoxSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyUp);
             // 
             // pageInfo
             // 
@@ -250,6 +253,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 457);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleReader";
