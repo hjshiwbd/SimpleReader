@@ -95,18 +95,22 @@ namespace demo002
             list.Clear();
             bookName.Text = Path.GetFileName(filename);//设置书名文本
             this.txtName = bookName.Text;//存到全局
-            FileStream fs = File.Open(filename, FileMode.Open);
-            Encoding encoding = TxtFileEncoding.GetEncoding(fs);
-            Log($"encoding:{encoding.EncodingName}");
-            StreamReader reader = new StreamReader(fs, encoding);
-            string s1;
-            while ((s1 = reader.ReadLine()) != null)
+
+            Encoding e = GetEncoding(filename);
+            Log($"encoding2:{e.EncodingName}");
+
+            //FileStream fs = File.Open(filename, FileMode.Open);
+            //Encoding encoding = TxtFileEncoding.GetEncoding(fs);
+            //Log($"encoding:{encoding.EncodingName}");
+
+            using(StreamReader reader = new StreamReader(filename, e))
             {
-                list.Add(s1);
+                string s1;
+                while ((s1 = reader.ReadLine()) != null)
+                {
+                    list.Add(s1);
+                }
             }
-            
-            reader.Close();
-            fs.Close();
         }
 
         //重新加载到上次阅读的位置
@@ -456,6 +460,29 @@ namespace demo002
             {
                 pageGoBtn_Click(sender, e);
             }
+        }
+
+        public Encoding GetEncoding(string filename)
+        {
+            // Read the BOM
+            var bom = new byte[4];
+            using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                file.Read(bom, 0, 4);
+            }
+
+            // Analyze the BOM
+            if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) return Encoding.UTF7;
+            if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) return Encoding.UTF8;
+            if (bom[0] == 0xff && bom[1] == 0xfe && bom[2] == 0 && bom[3] == 0) return Encoding.UTF32; //UTF-32LE
+            if (bom[0] == 0xff && bom[1] == 0xfe) return Encoding.Unicode; //UTF-16LE
+            if (bom[0] == 0xfe && bom[1] == 0xff) return Encoding.BigEndianUnicode; //UTF-16BE
+            if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) return new UTF32Encoding(true, true);  //UTF-32BE
+
+            // We actually have no idea what the encoding is if we reach this point, so
+            // you may wish to return null instead of defaulting to ASCII
+            Log("use default encoding");
+            return Encoding.Default;
         }
     }
 
