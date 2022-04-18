@@ -103,7 +103,7 @@ namespace demo002
             //Encoding encoding = TxtFileEncoding.GetEncoding(fs);
             //Log($"encoding:{encoding.EncodingName}");
 
-            using(StreamReader reader = new StreamReader(filename, e))
+            using(StreamReader reader = new StreamReader(filename))
             {
                 string s1;
                 while ((s1 = reader.ReadLine()) != null)
