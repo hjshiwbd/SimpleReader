@@ -314,8 +314,11 @@ namespace demo002
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveReadMark();
-            this.Hide();
-            e.Cancel = true;
+            DialogResult dr = MessageBox.Show("确定退出？", "提示", MessageBoxButtons.OKCancel);
+            if (dr == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
         }
 
         // 保存当前的阅读状态
@@ -499,7 +502,7 @@ namespace demo002
         private void itemShow_Click(object sender, EventArgs e)
         {
             this.Show();
-            this.TopMost = true;
+            this.Activate();
         }
 
         //右下任务栏,关闭
@@ -517,7 +520,7 @@ namespace demo002
         }
 
         //右下任务栏,双击切换显示/隐藏
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
             if (this.Visible == true)
             {
@@ -526,8 +529,9 @@ namespace demo002
             else
             {
                 this.Show();
-                this.TopMost = true;
+                this.Activate();
             }
+
         }
     }
 
