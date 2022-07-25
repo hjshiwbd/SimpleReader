@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.importBtn = new System.Windows.Forms.Button();
             this.pageTextbox = new System.Windows.Forms.TextBox();
@@ -46,10 +47,16 @@
             this.bookName = new System.Windows.Forms.Label();
             this.pageCountPerPageCB = new System.Windows.Forms.ComboBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyicon_contextmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemClose = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.notifyicon_contextmenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // importBtn
@@ -247,6 +254,44 @@
             this.richTextBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragEnter);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.notifyicon_contextmenu;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "SimpleReader";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // notifyicon_contextmenu
+            // 
+            this.notifyicon_contextmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemShow,
+            this.itemHide,
+            this.itemClose});
+            this.notifyicon_contextmenu.Name = "contextMenuStrip1";
+            this.notifyicon_contextmenu.Size = new System.Drawing.Size(101, 70);
+            // 
+            // itemShow
+            // 
+            this.itemShow.Name = "itemShow";
+            this.itemShow.Size = new System.Drawing.Size(100, 22);
+            this.itemShow.Text = "显示";
+            this.itemShow.Click += new System.EventHandler(this.itemShow_Click);
+            // 
+            // itemHide
+            // 
+            this.itemHide.Name = "itemHide";
+            this.itemHide.Size = new System.Drawing.Size(100, 22);
+            this.itemHide.Text = "隐藏";
+            this.itemHide.Click += new System.EventHandler(this.itemHide_Click);
+            // 
+            // itemClose
+            // 
+            this.itemClose.Name = "itemClose";
+            this.itemClose.Size = new System.Drawing.Size(100, 22);
+            this.itemClose.Text = "退出";
+            this.itemClose.Click += new System.EventHandler(this.itemClose_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -263,6 +308,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.notifyicon_contextmenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -286,6 +332,11 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSearchPrev;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip notifyicon_contextmenu;
+        private System.Windows.Forms.ToolStripMenuItem itemClose;
+        private System.Windows.Forms.ToolStripMenuItem itemShow;
+        private System.Windows.Forms.ToolStripMenuItem itemHide;
     }
 }
 

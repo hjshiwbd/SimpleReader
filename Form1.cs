@@ -133,7 +133,8 @@ namespace demo002
                 return true;
             }
         }
-
+        
+        //打印日志
         private void Log(string v)
         {
             Console.WriteLine(v);
@@ -220,9 +221,10 @@ namespace demo002
                 pageNextBtn_Click(null, null);
                 e.SuppressKeyPress = true;//关闭"ding"的声音
             }
+            //esc
             if (e.KeyCode == Keys.Escape)
             {
-                this.WindowState = FormWindowState.Minimized;
+                this.Hide();
             }
         }
 
@@ -312,6 +314,8 @@ namespace demo002
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveReadMark();
+            this.Hide();
+            e.Cancel = true;
         }
 
         // 保存当前的阅读状态
@@ -385,6 +389,7 @@ namespace demo002
             return t2;
         }
 
+        //下一个搜索
         private void buttonSearchNext_Click(object sender, EventArgs e)
         {
             if (this.textBoxSearch.Text.Length == 0)
@@ -425,6 +430,7 @@ namespace demo002
             return posiStart;
         }
 
+        //搜索内容行号
         private int GetSearchTextLine()
         {
             for (int i = this.searchIndex+1; i < list.Count; i++)
@@ -438,6 +444,7 @@ namespace demo002
             return -1;
         }
 
+        //搜索框输入时,搜索索引归零
         private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (this.searchIndex != 0)
@@ -446,6 +453,7 @@ namespace demo002
             }
         }
 
+        //搜索框回车触发搜索
         private void textBoxSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -454,6 +462,7 @@ namespace demo002
             }
         }
 
+        //页码框回车触发搜索
         private void pageTextbox_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -462,6 +471,7 @@ namespace demo002
             }
         }
 
+        //获取文件编码
         public Encoding GetEncoding(string filename)
         {
             // Read the BOM
@@ -483,6 +493,41 @@ namespace demo002
             // you may wish to return null instead of defaulting to ASCII
             Log("use default encoding");
             return Encoding.Default;
+        }
+
+        //右下任务栏图标,显示
+        private void itemShow_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.TopMost = true;
+        }
+
+        //右下任务栏,关闭
+        private void itemClose_Click(object sender, EventArgs e)
+        {
+            SaveReadMark();
+            this.Dispose();//施放资源
+            System.Environment.Exit(System.Environment.ExitCode);
+        }
+
+        //右下任务栏,隐藏
+        private void itemHide_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        //右下任务栏,双击切换显示/隐藏
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.Visible == true)
+            {
+                this.Hide();
+            }
+            else
+            {
+                this.Show();
+                this.TopMost = true;
+            }
         }
     }
 
