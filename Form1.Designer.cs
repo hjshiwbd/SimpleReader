@@ -39,6 +39,8 @@
             this.pageGoBtn = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pageSizeLabel = new System.Windows.Forms.Label();
+            this.fontSizeComboBox = new System.Windows.Forms.ComboBox();
             this.buttonSearchPrev = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSearchNext = new System.Windows.Forms.Button();
@@ -142,6 +144,8 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AllowDrop = true;
+            this.splitContainer1.Panel1.Controls.Add(this.pageSizeLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.fontSizeComboBox);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSearchPrev);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSearchNext);
@@ -166,6 +170,37 @@
             this.splitContainer1.SplitterDistance = 64;
             this.splitContainer1.TabIndex = 7;
             // 
+            // pageSizeLabel
+            // 
+            this.pageSizeLabel.AutoSize = true;
+            this.pageSizeLabel.Location = new System.Drawing.Point(742, 16);
+            this.pageSizeLabel.Name = "pageSizeLabel";
+            this.pageSizeLabel.Size = new System.Drawing.Size(29, 12);
+            this.pageSizeLabel.TabIndex = 16;
+            this.pageSizeLabel.Text = "字号";
+            // 
+            // fontSizeComboBox
+            // 
+            this.fontSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fontSizeComboBox.Items.AddRange(new object[] {
+            "9",
+            "10",
+            "12",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "30"});
+            this.fontSizeComboBox.Location = new System.Drawing.Point(777, 11);
+            this.fontSizeComboBox.Name = "fontSizeComboBox";
+            this.fontSizeComboBox.Size = new System.Drawing.Size(64, 20);
+            this.fontSizeComboBox.TabIndex = 15;
+            this.fontSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.fontSizeComboBox_SelectedIndexChanged);
+            // 
             // buttonSearchPrev
             // 
             this.buttonSearchPrev.Location = new System.Drawing.Point(685, 9);
@@ -174,6 +209,7 @@
             this.buttonSearchPrev.TabIndex = 14;
             this.buttonSearchPrev.Text = "上一个";
             this.buttonSearchPrev.UseVisualStyleBackColor = true;
+            this.buttonSearchPrev.Click += new System.EventHandler(this.buttonSearchPrev_Click);
             // 
             // label1
             // 
@@ -337,6 +373,8 @@
         private System.Windows.Forms.ToolStripMenuItem itemClose;
         private System.Windows.Forms.ToolStripMenuItem itemShow;
         private System.Windows.Forms.ToolStripMenuItem itemHide;
+        private System.Windows.Forms.ComboBox fontSizeComboBox;
+        private System.Windows.Forms.Label pageSizeLabel;
     }
 }
 

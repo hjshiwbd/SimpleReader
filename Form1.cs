@@ -39,6 +39,11 @@ namespace demo002
         {
             InitializeComponent();
             InitConfigFile();
+
+            //初始化
+            //combobox的选项
+            this.fontSizeComboBox.SelectedIndex = 5;
+            this.pageCountPerPageCB.SelectedIndex = 0;
         }
 
         //生成配置文件
@@ -237,6 +242,9 @@ namespace demo002
         //每页行数,下拉框改变
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (pageCountPerPageCB.SelectedIndex==-1) {
+                return;
+            }
             this.countPerPage = Convert.ToInt32(pageCountPerPageCB.SelectedItem.ToString());
             LoadPage(1);
         }
@@ -395,24 +403,42 @@ namespace demo002
         //下一个搜索
         private void buttonSearchNext_Click(object sender, EventArgs e)
         {
+            SearchAndSelectTxt(true);
+        }
+
+        //上一个搜索
+        private void buttonSearchPrev_Click(object sender, EventArgs e)
+        {
+            SearchAndSelectTxt(false);
+        }
+
+        private void SearchAndSelectTxt(Boolean forward)
+        {
             if (this.textBoxSearch.Text.Length == 0)
             {
                 return;
             }
             //搜索
-            int lineNum = GetSearchTextLine();
+            int lineNum = GetSearchTextLine(forward);
             if (lineNum >= 0)
             {
+                //第几页
                 decimal page = Math.Ceiling((decimal)(lineNum + 1) / countPerPage);
+                //加载该页
                 LoadPage(((int)page));
-                int position = GetSearchPositionInPage(lineNum,((int)page));
+                //选中高亮的区域,起点坐标
+                int position = GetSearchPositionInPage(lineNum, ((int)page));
+                //从起点坐标选择n个长度,文字高亮
                 this.richTextBox1.Select(position, this.textBoxSearch.Text.Length);
-            } else
+            }
+            else
             {
                 MessageBox.Show("未找到");
                 this.searchIndex = -1;
             }
         }
+
+
 
         // 搜索内容在当前页的位置(开始下标,结束下标)
         private int GetSearchPositionInPage(int lineNum, int page)
@@ -433,17 +459,37 @@ namespace demo002
             return posiStart;
         }
 
-        //搜索内容行号
-        private int GetSearchTextLine()
+        /// <summary>
+        /// 搜索内容行号
+        /// </summary>
+        /// <param name="forward">true,从前往后; false-从后往前</param>
+        /// <returns></returns>
+        private int GetSearchTextLine(Boolean forward = true)
         {
-            for (int i = this.searchIndex+1; i < list.Count; i++)
+            if (forward)
             {
-                if (list.ElementAt(i).Contains(this.textBoxSearch.Text))
+                //搜索方向,从开始到结尾
+                for (int i = this.searchIndex + 1; i < list.Count; i++)
                 {
-                    this.searchIndex = i;
-                    return i;
+                    if (list.ElementAt(i).Contains(this.textBoxSearch.Text))
+                    {
+                        this.searchIndex = i;
+                        return i;
+                    }
+                }
+            } else
+            {
+                //搜索方向,从结尾到开始
+                for (int i = this.searchIndex - 1; i > 0; i--)
+                {
+                    if (list.ElementAt(i).Contains(this.textBoxSearch.Text))
+                    {
+                        this.searchIndex = i;
+                        return i;
+                    }
                 }
             }
+            //没找到
             return -1;
         }
 
@@ -533,6 +579,13 @@ namespace demo002
             }
 
         }
+
+        private void fontSizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.richTextBox1.Font = new System.Drawing.Font("宋体", float.Parse(this.fontSizeComboBox.SelectedItem.ToString()), 
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        }
+
     }
 
     //翻页工具类
