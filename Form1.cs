@@ -9,7 +9,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
@@ -17,7 +16,6 @@ namespace demo002
 {
     public partial class Form1 : Form
     {
-
         //
         private string appname = "simplereader";
         //txt内容转储到list
