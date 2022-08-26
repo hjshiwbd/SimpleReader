@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace demo002
@@ -30,20 +32,49 @@ namespace demo002
         string configPath;
         //配置项
         string SECTION_PAGINATION = "pagination";
-        //txt名
+        readonly string SECTION_GLOBAL = "global";
+        readonly string KEY_REOPENLIST = "ReopenList";
+        //打开的文件名,不是全路径
         string txtName;
         //当前搜索到第几行,用于连续搜索的开始点
         int searchIndex = -1;
 
+        //启动初始化
         public Form1()
         {
             InitializeComponent();
             InitConfigFile();
+            InitReopen();
 
             //初始化
             //combobox的选项
             this.fontSizeComboBox.SelectedIndex = 5;
             this.pageCountPerPageCB.SelectedIndex = 0;
+        }
+
+        //初始化reopen内容
+        private void InitReopen()
+        {
+            reopenToolStripMenuItem.DropDownItems.Clear();
+
+            var reopenFromIni = OperateIniFile.ReadIniData(SECTION_GLOBAL, KEY_REOPENLIST, "[]", this.configPath);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Dictionary<object, object>> list = serializer.Deserialize<List<Dictionary<object, object>>>(reopenFromIni);
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                var d = list[i];
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = d["filename"].ToString();
+                item.Click += ReopenItemClick;
+                reopenToolStripMenuItem.DropDownItems.Add(item);
+            }
+        }
+
+        //选择打开过的文件
+        private void ReopenItemClick(object sender, EventArgs e)
+        {
+            var fname = sender.ToString();
+            LoadFile(fname);
         }
 
         //生成配置文件
@@ -61,7 +92,7 @@ namespace demo002
             {
                 File.CreateText(appData);
             }
-            configPath = appData;
+            this.configPath = appData;
         }
 
         //导入文件
@@ -70,6 +101,7 @@ namespace demo002
             LoadFile(openFileDialog1.FileName);
         }
 
+        //加载txt
         private void LoadFile(string filename)
         {
             if (!filename.ToLower().EndsWith(".txt"))
@@ -78,6 +110,8 @@ namespace demo002
                 return;
             }
 
+            //打开记录
+            SaveOpenRecord(filename);
             // 保存当前阅读书签
             SaveReadMark();
             // 加载新txt
@@ -86,11 +120,44 @@ namespace demo002
             //Console.WriteLine(string.Format("time cost:{0}, line count:{1}", stopWatch.ElapsedMilliseconds, list.Count));
 
             // 上次阅读的位置
-            GetLastReadMark(txtName);
+            GetLastReadMark(this.txtName);
             // 加载
-            LoadPage(this.page, this.countPerPage, true);   
+            LoadPage(this.page, this.countPerPage, true);
         }
-        
+
+        //历史阅读文件
+        private void SaveOpenRecord(string filename)
+        {
+            string name = Path.GetFileName(filename);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string reopenFromIni = OperateIniFile.ReadIniData(SECTION_GLOBAL, KEY_REOPENLIST, "[]", configPath);
+            List<Dictionary<object, object>> list = serializer.Deserialize<List<Dictionary<object, object>>>(reopenFromIni);
+            int i = list.FindIndex(x => x["filename"].ToString() == filename);
+            if (i != -1)
+            {
+                //已存在,删除
+                list.RemoveAt(i);
+            }
+            //加到末尾,显示时倒序即末尾最先显示
+            list.Add(new Dictionary<object, object>
+                {
+                    {"filename",filename },
+                    {"name",name }
+                }
+            );
+            //只保留30个历史打开记录
+            for (int j = 30; j < list.Count; j++)
+            {
+                list.RemoveAt(j);
+            }
+
+            var json = serializer.Serialize(list);
+            OperateIniFile.WriteIniData(SECTION_GLOBAL, KEY_REOPENLIST, json, configPath);
+
+            //修改reopen list
+            InitReopen();
+        }
+
 
         //缓存文件内容
         private void CacheFile(string filename)
@@ -98,17 +165,18 @@ namespace demo002
             Log($"filename:{filename}");
 
             list.Clear();
-            bookName.Text = Path.GetFileName(filename);//设置书名文本
-            this.txtName = bookName.Text;//存到全局
+
+            //文件名称
+            this.txtName = Path.GetFileName(filename);//书名存到全局
+            this.Text = "SimpleReader - " + this.txtName;//修改title
 
             Encoding e = GetEncoding(filename);
-            Log($"encoding2:{e.EncodingName}");
 
             //FileStream fs = File.Open(filename, FileMode.Open);
             //Encoding encoding = TxtFileEncoding.GetEncoding(fs);
             //Log($"encoding:{encoding.EncodingName}");
 
-            using(StreamReader reader = new StreamReader(filename))
+            using (StreamReader reader = new StreamReader(filename))
             {
                 string s1;
                 while ((s1 = reader.ReadLine()) != null)
@@ -124,7 +192,6 @@ namespace demo002
             string bookname = MD5Encrypt16(txtName);
             string page = OperateIniFile.ReadIniData(SECTION_PAGINATION, bookname + ".page", "nodata", configPath);
             string countPerPage = OperateIniFile.ReadIniData(SECTION_PAGINATION, bookname + ".countPerPage", "nodata", configPath);
-            Log($"read history:page:{page},cpp:{countPerPage}");
             if (page.Equals("nodata"))
             {
                 this.page = 1;
@@ -138,7 +205,7 @@ namespace demo002
                 return true;
             }
         }
-        
+
         //打印日志
         private void Log(string v)
         {
@@ -242,7 +309,8 @@ namespace demo002
         //每页行数,下拉框改变
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (pageCountPerPageCB.SelectedIndex==-1) {
+            if (pageCountPerPageCB.SelectedIndex == -1)
+            {
                 return;
             }
             this.countPerPage = Convert.ToInt32(pageCountPerPageCB.SelectedItem.ToString());
@@ -310,12 +378,6 @@ namespace demo002
         private string GetContent(int page)
         {
             return GetContent(page, this.countPerPage, false);
-        }
-
-        //存书签
-        private void saveBookmark_Click(object sender, EventArgs e)
-        {
-
         }
 
         // 关闭事件
@@ -411,7 +473,7 @@ namespace demo002
         {
             SearchAndSelectTxt(false);
         }
-
+        //搜索+选中文本
         private void SearchAndSelectTxt(Boolean forward)
         {
             if (this.textBoxSearch.Text.Length == 0)
@@ -451,7 +513,7 @@ namespace demo002
             int lineStart = lineStr.IndexOf(this.textBoxSearch.Text);
             int posiStart = 0;
             //[搜索结果页的第0行->结果所在行-1]的所有字数累加
-            for (int i = (page - 1) * countPerPage; i <= lineNum - 1; i++) 
+            for (int i = (page - 1) * countPerPage; i <= lineNum - 1; i++)
             {
                 posiStart += list.ElementAt(i).Length + 1;//+1是回车
             }
@@ -477,7 +539,8 @@ namespace demo002
                         return i;
                     }
                 }
-            } else
+            }
+            else
             {
                 //搜索方向,从结尾到开始
                 for (int i = this.searchIndex - 1; i > 0; i--)
@@ -540,7 +603,7 @@ namespace demo002
 
             // We actually have no idea what the encoding is if we reach this point, so
             // you may wish to return null instead of defaulting to ASCII
-            Log("use default encoding");
+
             return Encoding.Default;
         }
 
@@ -582,7 +645,7 @@ namespace demo002
 
         private void fontSizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.richTextBox1.Font = new System.Drawing.Font("宋体", float.Parse(this.fontSizeComboBox.SelectedItem.ToString()), 
+            this.richTextBox1.Font = new System.Drawing.Font("宋体", float.Parse(this.fontSizeComboBox.SelectedItem.ToString()),
                 System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         }
 

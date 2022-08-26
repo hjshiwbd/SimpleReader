@@ -39,31 +39,36 @@
             this.pageGoBtn = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pageSizeLabel = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.fontSizeComboBox = new System.Windows.Forms.ComboBox();
+            this.pageSizeLabel = new System.Windows.Forms.Label();
             this.buttonSearchPrev = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonSearchNext = new System.Windows.Forms.Button();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.pageInfo = new System.Windows.Forms.Label();
-            this.bookName = new System.Windows.Forms.Label();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.pageCountPerPageCB = new System.Windows.Forms.ComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.reopenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyicon_contextmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemShow = new System.Windows.Forms.ToolStripMenuItem();
             this.itemHide = new System.Windows.Forms.ToolStripMenuItem();
             this.itemClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.notifyicon_contextmenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // importBtn
             // 
-            this.importBtn.Location = new System.Drawing.Point(18, 11);
+            this.importBtn.Location = new System.Drawing.Point(17, 20);
             this.importBtn.Name = "importBtn";
             this.importBtn.Size = new System.Drawing.Size(47, 23);
             this.importBtn.TabIndex = 0;
@@ -73,7 +78,7 @@
             // 
             // pageTextbox
             // 
-            this.pageTextbox.Location = new System.Drawing.Point(283, 11);
+            this.pageTextbox.Location = new System.Drawing.Point(282, 20);
             this.pageTextbox.Name = "pageTextbox";
             this.pageTextbox.Size = new System.Drawing.Size(43, 21);
             this.pageTextbox.TabIndex = 1;
@@ -81,7 +86,7 @@
             // 
             // pageEndBtn
             // 
-            this.pageEndBtn.Location = new System.Drawing.Point(230, 11);
+            this.pageEndBtn.Location = new System.Drawing.Point(229, 20);
             this.pageEndBtn.Name = "pageEndBtn";
             this.pageEndBtn.Size = new System.Drawing.Size(47, 23);
             this.pageEndBtn.TabIndex = 2;
@@ -91,7 +96,7 @@
             // 
             // pageNextBtn
             // 
-            this.pageNextBtn.Location = new System.Drawing.Point(177, 11);
+            this.pageNextBtn.Location = new System.Drawing.Point(176, 20);
             this.pageNextBtn.Name = "pageNextBtn";
             this.pageNextBtn.Size = new System.Drawing.Size(47, 23);
             this.pageNextBtn.TabIndex = 3;
@@ -101,7 +106,7 @@
             // 
             // pagePrevBtn
             // 
-            this.pagePrevBtn.Location = new System.Drawing.Point(124, 11);
+            this.pagePrevBtn.Location = new System.Drawing.Point(123, 20);
             this.pagePrevBtn.Name = "pagePrevBtn";
             this.pagePrevBtn.Size = new System.Drawing.Size(47, 23);
             this.pagePrevBtn.TabIndex = 4;
@@ -111,7 +116,7 @@
             // 
             // pageFirstBtn
             // 
-            this.pageFirstBtn.Location = new System.Drawing.Point(71, 11);
+            this.pageFirstBtn.Location = new System.Drawing.Point(70, 20);
             this.pageFirstBtn.Name = "pageFirstBtn";
             this.pageFirstBtn.Size = new System.Drawing.Size(47, 23);
             this.pageFirstBtn.TabIndex = 5;
@@ -121,7 +126,7 @@
             // 
             // pageGoBtn
             // 
-            this.pageGoBtn.Location = new System.Drawing.Point(332, 11);
+            this.pageGoBtn.Location = new System.Drawing.Point(331, 20);
             this.pageGoBtn.Name = "pageGoBtn";
             this.pageGoBtn.Size = new System.Drawing.Size(47, 23);
             this.pageGoBtn.TabIndex = 6;
@@ -144,40 +149,41 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AllowDrop = true;
-            this.splitContainer1.Panel1.Controls.Add(this.pageSizeLabel);
-            this.splitContainer1.Panel1.Controls.Add(this.fontSizeComboBox);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSearchPrev);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSearchNext);
-            this.splitContainer1.Panel1.Controls.Add(this.textBoxSearch);
-            this.splitContainer1.Panel1.Controls.Add(this.pageInfo);
-            this.splitContainer1.Panel1.Controls.Add(this.bookName);
-            this.splitContainer1.Panel1.Controls.Add(this.pageCountPerPageCB);
-            this.splitContainer1.Panel1.Controls.Add(this.pageFirstBtn);
-            this.splitContainer1.Panel1.Controls.Add(this.pageGoBtn);
-            this.splitContainer1.Panel1.Controls.Add(this.importBtn);
-            this.splitContainer1.Panel1.Controls.Add(this.pageTextbox);
-            this.splitContainer1.Panel1.Controls.Add(this.pagePrevBtn);
-            this.splitContainer1.Panel1.Controls.Add(this.pageEndBtn);
-            this.splitContainer1.Panel1.Controls.Add(this.pageNextBtn);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.menuStrip1);
             this.splitContainer1.Panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragDrop);
             this.splitContainer1.Panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragEnter);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(884, 457);
-            this.splitContainer1.SplitterDistance = 64;
-            this.splitContainer1.TabIndex = 7;
+            this.splitContainer1.Size = new System.Drawing.Size(1068, 556);
+            this.splitContainer1.SplitterDistance = 100;
+            this.splitContainer1.TabIndex = 1;
             // 
-            // pageSizeLabel
+            // groupBox1
             // 
-            this.pageSizeLabel.AutoSize = true;
-            this.pageSizeLabel.Location = new System.Drawing.Point(742, 16);
-            this.pageSizeLabel.Name = "pageSizeLabel";
-            this.pageSizeLabel.Size = new System.Drawing.Size(29, 12);
-            this.pageSizeLabel.TabIndex = 16;
-            this.pageSizeLabel.Text = "字号";
+            this.groupBox1.Controls.Add(this.fontSizeComboBox);
+            this.groupBox1.Controls.Add(this.pageSizeLabel);
+            this.groupBox1.Controls.Add(this.importBtn);
+            this.groupBox1.Controls.Add(this.pageFirstBtn);
+            this.groupBox1.Controls.Add(this.buttonSearchPrev);
+            this.groupBox1.Controls.Add(this.pageNextBtn);
+            this.groupBox1.Controls.Add(this.buttonSearchNext);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.pageInfo);
+            this.groupBox1.Controls.Add(this.textBoxSearch);
+            this.groupBox1.Controls.Add(this.pagePrevBtn);
+            this.groupBox1.Controls.Add(this.pageEndBtn);
+            this.groupBox1.Controls.Add(this.pageTextbox);
+            this.groupBox1.Controls.Add(this.pageCountPerPageCB);
+            this.groupBox1.Controls.Add(this.pageGoBtn);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 25);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1068, 73);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
             // 
             // fontSizeComboBox
             // 
@@ -195,15 +201,24 @@
             "26",
             "28",
             "30"});
-            this.fontSizeComboBox.Location = new System.Drawing.Point(777, 11);
+            this.fontSizeComboBox.Location = new System.Drawing.Point(768, 20);
             this.fontSizeComboBox.Name = "fontSizeComboBox";
             this.fontSizeComboBox.Size = new System.Drawing.Size(64, 20);
             this.fontSizeComboBox.TabIndex = 15;
             this.fontSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.fontSizeComboBox_SelectedIndexChanged);
             // 
+            // pageSizeLabel
+            // 
+            this.pageSizeLabel.AutoSize = true;
+            this.pageSizeLabel.Location = new System.Drawing.Point(733, 25);
+            this.pageSizeLabel.Name = "pageSizeLabel";
+            this.pageSizeLabel.Size = new System.Drawing.Size(29, 12);
+            this.pageSizeLabel.TabIndex = 16;
+            this.pageSizeLabel.Text = "字号";
+            // 
             // buttonSearchPrev
             // 
-            this.buttonSearchPrev.Location = new System.Drawing.Point(685, 9);
+            this.buttonSearchPrev.Location = new System.Drawing.Point(676, 20);
             this.buttonSearchPrev.Name = "buttonSearchPrev";
             this.buttonSearchPrev.Size = new System.Drawing.Size(51, 23);
             this.buttonSearchPrev.TabIndex = 14;
@@ -211,18 +226,9 @@
             this.buttonSearchPrev.UseVisualStyleBackColor = true;
             this.buttonSearchPrev.Click += new System.EventHandler(this.buttonSearchPrev_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(384, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "每页行数";
-            // 
             // buttonSearchNext
             // 
-            this.buttonSearchNext.Location = new System.Drawing.Point(628, 9);
+            this.buttonSearchNext.Location = new System.Drawing.Point(619, 20);
             this.buttonSearchNext.Name = "buttonSearchNext";
             this.buttonSearchNext.Size = new System.Drawing.Size(51, 23);
             this.buttonSearchNext.TabIndex = 12;
@@ -230,32 +236,32 @@
             this.buttonSearchNext.UseVisualStyleBackColor = true;
             this.buttonSearchNext.Click += new System.EventHandler(this.buttonSearchNext_Click);
             // 
-            // textBoxSearch
+            // label1
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(522, 10);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(100, 21);
-            this.textBoxSearch.TabIndex = 11;
-            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
-            this.textBoxSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyUp);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(384, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "每页行数";
             // 
             // pageInfo
             // 
             this.pageInfo.AutoSize = true;
-            this.pageInfo.Location = new System.Drawing.Point(230, 40);
+            this.pageInfo.Location = new System.Drawing.Point(15, 50);
             this.pageInfo.Name = "pageInfo";
             this.pageInfo.Size = new System.Drawing.Size(53, 12);
             this.pageInfo.TabIndex = 9;
             this.pageInfo.Text = "分页信息";
             // 
-            // bookName
+            // textBoxSearch
             // 
-            this.bookName.AutoSize = true;
-            this.bookName.Location = new System.Drawing.Point(18, 41);
-            this.bookName.Name = "bookName";
-            this.bookName.Size = new System.Drawing.Size(53, 12);
-            this.bookName.TabIndex = 8;
-            this.bookName.Text = "暂无书名";
+            this.textBoxSearch.Location = new System.Drawing.Point(513, 20);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 21);
+            this.textBoxSearch.TabIndex = 11;
+            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
+            this.textBoxSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyUp);
             // 
             // pageCountPerPageCB
             // 
@@ -267,11 +273,29 @@
             "5000",
             "10000",
             "50000"});
-            this.pageCountPerPageCB.Location = new System.Drawing.Point(442, 11);
+            this.pageCountPerPageCB.Location = new System.Drawing.Point(443, 20);
             this.pageCountPerPageCB.Name = "pageCountPerPageCB";
             this.pageCountPerPageCB.Size = new System.Drawing.Size(64, 20);
             this.pageCountPerPageCB.TabIndex = 7;
             this.pageCountPerPageCB.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reopenToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1068, 25);
+            this.menuStrip1.TabIndex = 17;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // reopenToolStripMenuItem
+            // 
+            this.reopenToolStripMenuItem.Name = "reopenToolStripMenuItem";
+            this.reopenToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.reopenToolStripMenuItem.Text = "重新打开";
             // 
             // richTextBox1
             // 
@@ -283,7 +307,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(884, 389);
+            this.richTextBox1.Size = new System.Drawing.Size(1068, 452);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "请导入txt";
             this.richTextBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitContainer1_Panel1_DragDrop);
@@ -328,11 +352,17 @@
             this.itemClose.Text = "退出";
             this.itemClose.Click += new System.EventHandler(this.itemClose_Click);
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 457);
+            this.ClientSize = new System.Drawing.Size(1068, 556);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -344,6 +374,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.notifyicon_contextmenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -362,7 +396,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ComboBox pageCountPerPageCB;
-        private System.Windows.Forms.Label bookName;
         private System.Windows.Forms.Label pageInfo;
         private System.Windows.Forms.Button buttonSearchNext;
         private System.Windows.Forms.TextBox textBoxSearch;
@@ -375,6 +408,10 @@
         private System.Windows.Forms.ToolStripMenuItem itemHide;
         private System.Windows.Forms.ComboBox fontSizeComboBox;
         private System.Windows.Forms.Label pageSizeLabel;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem reopenToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
